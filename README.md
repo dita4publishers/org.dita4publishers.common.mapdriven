@@ -1,8 +1,9 @@
-org.dita4publishers.common.xslt
+org.dita4publishers.mapdriven
 ======================
 
-Provides XSLT modules and function libraries appropriate
-for any Open Toolkit transform. Primarily supports the
-D4P map-driven processing framework.
+Provides general map-driven processing framework support.
 
-Depends on the org.dita-community-common.xslt plugin <https://github.com/dita-community/org.dita-community.common.xslt>
+These XSLT modules manage collection of data across an entire
+publication, allowing things like cross-publication numbering,
+back-of-the-book index generation, navigation list generation,
+etc.
