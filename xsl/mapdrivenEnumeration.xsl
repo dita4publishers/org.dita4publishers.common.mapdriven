@@ -3,8 +3,10 @@
   xmlns:relpath="http://dita2indesign/functions/relpath" xmlns:enum="http://dita4publishers.org/enumerables"
   xmlns:htmlutil="http://dita4publishers.org/functions/htmlutil" xmlns:local="urn:functions:local"
   xmlns:ditaarch="http://dita.oasis-open.org/architecture/2005/"
-  xmlns:index-terms="http://dita4publishers.org/index-terms" xmlns="http://dita4publishers.org/enumerables"
-  exclude-result-prefixes="local xs df xsl relpath enum htmlutil ditaarch index-terms">
+  xmlns:index-terms="http://dita4publishers.org/index-terms" 
+  xmlns="http://dita4publishers.org/enumerables"
+  xmlns:date="java:java.util.Date"
+  exclude-result-prefixes="local xs df xsl relpath enum htmlutil ditaarch index-terms date">
   <!-- =============================================================
     
     DITA Map to HTML Transformation
@@ -61,9 +63,11 @@
       <xsl:if test="./@id">
         <xsl:attribute name="origId" select="@id"/>
       </xsl:if>
-      <xsl:attribute name="xml:lang">
-        <xsl:call-template name="getLowerCaseLang"/>
-      </xsl:attribute>
+      <xsl:attribute name="xml:lang" 
+        select="if (ancestor-or-self::*/@xml:lang) 
+                   then lower-case(ancestor-or-self::*[@xml:lang][1]/@xml:lang)
+                   else $DEFAULTLANG"
+      />
 
       <xsl:if test="./@xtrc">
         <xsl:attribute name="xtrc" select="@xtrc"/>
@@ -149,10 +153,20 @@
             <xsl:if test="$doDebug">
               <xsl:message> + [DEBUG] construct-enumerable-structure:       Applying templates to $topic in mode construct-enumerable-structure...</xsl:message>
             </xsl:if>
+            <xsl:variable name="start-time-topic" select="date:getTime(date:new())" as="xs:integer"/>
+            <xsl:message> + [DEBUG] construct-enumerable-structure:                     start-time-topic=<xsl:value-of select="$start-time-topic"/></xsl:message>
             <xsl:apply-templates mode="#current" select="$topic">
               <xsl:with-param name="doDebug" as="xs:boolean" tunnel="yes" select="$doDebug"/>
               <xsl:with-param name="topicref" as="element()" select="." tunnel="yes"/>
             </xsl:apply-templates>
+            <xsl:variable name="end-time-topic" select="date:getTime(date:new())" as="xs:integer"/>
+            <!-- NOTE: This message is designed to make it easy to use grep to generate a CSV file with the timings.
+              
+                 grep 'File: ' transform.log > timings.csv
+            
+            -->
+            <xsl:message>File: <xsl:value-of select="@href"/>,<xsl:value-of 
+          select="($end-time-topic - $start-time-topic) div 1000"/></xsl:message>
             <xsl:if test="$doDebug">
               <xsl:message> + [DEBUG] construct-enumerable-structure:       Applying templates to child topicrefs in mode construct-enumerable-structure...</xsl:message>
             </xsl:if>
