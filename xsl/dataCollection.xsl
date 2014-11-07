@@ -50,40 +50,40 @@
       <!-- Index Terms: -->
       <xsl:if test="$generateIndexBoolean">
         <xsl:message> + [INFO] Grouping and sorting index terms...</xsl:message>
+        <xsl:variable name="startTime-gi" select="date:getTime(date:new())" as="xs:integer"/>
         <xsl:if test="$doDebug">
-          <xsl:variable name="startTime-gi" select="date:getTime(date:new())" as="xs:integer"/>
           <xsl:message> + [DEBUG] group-and-sort-index: Start time: <xsl:value-of select="$startTime-gi"/></xsl:message>
         </xsl:if>
         <xsl:apply-templates mode="group-and-sort-index" select="."/>
+        <xsl:variable name="endTime-gi" select="date:getTime(date:new())" as="xs:integer"/>
         <xsl:if test="$doDebug">
-          <xsl:variable name="endTime-gi" select="date:getTime(date:new())" as="xs:integer"/>
           <xsl:variable name="elapsed-gi" as="xs:integer" select="$endTime-gi - $startTime-gi"/>
           <xsl:message> + [DEBUG] group-and-sort-index: Elapsed time: <xsl:value-of select="($endTime-gi - $startTime-gi) div 1000"/> seconds.</xsl:message>
         </xsl:if>
       </xsl:if>
       <!-- Enumerated (countable) elements: -->
       <enum:enumerables>
+        <xsl:variable name="startTime-enum" select="date:getTime(date:new())"/>
         <xsl:if test="$doDebug">
-          <xsl:variable name="startTime-enum" select="date:getTime(date:new())"/>
           <xsl:message> + [DEBUG] construct-enumerable-structure:         Start time: <xsl:value-of select="$startTime-enum"/></xsl:message>
         </xsl:if>          
         <xsl:apply-templates mode="construct-enumerable-structure" select="."/>
+        <xsl:variable name="endTime-enum" select="date:getTime(date:new())"/>
         <xsl:if test="$doDebug">
-          <xsl:variable name="endTime-enum" select="date:getTime(date:new())"/>
           <xsl:message> + [DEBUG] construct-enumerable-structure: Elapsed time: <xsl:value-of select="($endTime-enum - $startTime-enum) div 1000"/> seconds.</xsl:message>
         </xsl:if>
       </enum:enumerables>
       <!-- Glossary entries -->
       <glossdata:glossary-entries>
         <xsl:if test="$generateGlossaryBoolean">
+          <xsl:variable name="startTime-gloss" select="date:getTime(date:new())"/>
           <xsl:if test="$doDebug">
-            <xsl:variable name="startTime-gloss" select="date:getTime(date:new())"/>
             <xsl:message> + [DEBUG] group-and-sort-glossary: Start time: <xsl:value-of select="$startTime-gloss"/></xsl:message>
           </xsl:if>
           <xsl:apply-templates mode="group-and-sort-glossary" select="."/>
+          <xsl:variable name="endTime-gloss" select="date:getTime(date:new())"/>
           <xsl:if test="$doDebug">
-            <xsl:variable name="endTime-gloss" select="date:getTime(date:new())"/>
-          <xsl:message> + [DEBUG] group-and-sort-glossary: Elapsed time: <xsl:value-of select="($endTime-gloss - $startTime-gloss) div 1000"/> seconds.</xsl:message>
+            <xsl:message> + [DEBUG] group-and-sort-glossary: Elapsed time: <xsl:value-of select="($endTime-gloss - $startTime-gloss) div 1000"/> seconds.</xsl:message>
           </xsl:if>
         </xsl:if>
       </glossdata:glossary-entries>
@@ -91,14 +91,14 @@
         <xsl:apply-templates mode="collect-applicability-data" select="."/>
       </applicability:conditions-->
       
+      <xsl:variable name="startTime-dcext" select="date:getTime(date:new())"/>
       <xsl:if test="$doDebug">
-        <xsl:variable name="startTime-dcext" select="date:getTime(date:new())"/>
         <xsl:message> + [DEBUG] data-collection-extensions: Start time: <xsl:value-of select="$startTime-dcext"/></xsl:message>
       </xsl:if>
       <xsl:apply-templates mode="data-collection-extensions" select="."/>
+      <xsl:variable name="endTime-dcext" select="date:getTime(date:new())"/>
       <xsl:if test="$doDebug">
-        <xsl:variable name="endTime-dcext" select="date:getTime(date:new())"/>
-          <xsl:message> + [DEBUG] data-collection-extensions: Elapsed time: <xsl:value-of select="($endTime-dcext - $startTime-dcext) div 1000"/> seconds.</xsl:message>
+        <xsl:message> + [DEBUG] data-collection-extensions: Elapsed time: <xsl:value-of select="($endTime-dcext - $startTime-dcext) div 1000"/> seconds.</xsl:message>
       </xsl:if>
     </mapdriven:collected-data>
   </xsl:template>
