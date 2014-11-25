@@ -5,7 +5,10 @@
        This plugin does not define any transformation types.
       -->
   <require plugin="org.dita-community.common.xslt"/>
-      
+
+  <feature extension="package.support.name" value="Eliot Kimber"/>
+  <feature extension="package.support.email" value="ekimber@contrext.com"/>
+
   <feature extension="dita.conductor.target.relative" value="build.xml" type="file"/>
       
 </plugin>
