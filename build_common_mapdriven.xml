@@ -7,7 +7,9 @@
   	<echo message="Turning off copy-files preprocessing target" taskname="INFO"/>
 
   	<property name="d4p.is.map.driven" value="true"/>
-    <property name="preprocess.copy-files.skip" value="true"/>
+    <!-- NOTE: Not turning off preprocessing copy files because that breaks
+               coderef, among other things.
+      -->
     
   </target>
   
