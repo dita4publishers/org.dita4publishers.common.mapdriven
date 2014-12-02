@@ -154,7 +154,9 @@
               <xsl:message> + [DEBUG] construct-enumerable-structure:       Applying templates to $topic in mode construct-enumerable-structure...</xsl:message>
             </xsl:if>
             <xsl:variable name="start-time-topic" select="date:getTime(date:new())" as="xs:integer"/>
-            <xsl:message> + [DEBUG] construct-enumerable-structure:                     start-time-topic=<xsl:value-of select="$start-time-topic"/></xsl:message>
+            <xsl:if test="$doDebug">
+              <xsl:message> + [DEBUG] construct-enumerable-structure:                     start-time-topic=<xsl:value-of select="$start-time-topic"/></xsl:message>
+            </xsl:if>
             <xsl:apply-templates mode="#current" select="$topic">
               <xsl:with-param name="doDebug" as="xs:boolean" tunnel="yes" select="$doDebug"/>
               <xsl:with-param name="topicref" as="element()" select="." tunnel="yes"/>
@@ -165,8 +167,10 @@
                  grep 'File: ' transform.log > timings.csv
             
             -->
-            <xsl:message>File: <xsl:value-of select="@href"/>,<xsl:value-of 
+            <xsl:if test="$doDebug">
+              <xsl:message>File: <xsl:value-of select="@href"/>,<xsl:value-of 
           select="($end-time-topic - $start-time-topic) div 1000"/></xsl:message>
+            </xsl:if>
             <xsl:if test="$doDebug">
               <xsl:message> + [DEBUG] construct-enumerable-structure:       Applying templates to child topicrefs in mode construct-enumerable-structure...</xsl:message>
             </xsl:if>
