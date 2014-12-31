@@ -177,7 +177,7 @@
             <xsl:if test="not(contains(@chunk, 'to-content'))">
               <!-- If the topicref specifies chunk="to-content" then we don't need to
                    process any subordinate topicrefs because all the content will have
-                   been in the chunk referenced by this topicrefs. Any subordinate 
+                   been in the chunk referenced by this topicref. Any subordinate 
                    topicrefs will be only for navigation purposes.
                 -->
               <xsl:apply-templates mode="#current" select="*[df:class(., 'map/topicref')]">
@@ -237,8 +237,8 @@
     <xsl:call-template name="construct-enumerated-element">
       <xsl:with-param name="content" as="node()*">
         <xsl:apply-templates mode="#current"
-          select="*[df:class(., 'topic/title')], 
-                  *[df:class(., 'topic/body')], 
+          select="*[df:class(., 'topic/title')],
+                  *[df:class(., 'topic/body')],
                   *[df:class(., 'topic/topic')]"
         />
       </xsl:with-param>
@@ -263,7 +263,6 @@
         <xsl:apply-templates mode="#current"/>
       </xsl:with-param>
     </xsl:call-template>
-    <xsl:apply-templates mode="construct-enumerable-structure"/>
   </xsl:template>
 
   <xsl:template mode="construct-enumerable-structure" priority="10"
