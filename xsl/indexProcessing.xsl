@@ -352,7 +352,10 @@ the index-see and index-see-also elements will be ignored.</xsl:message>
     <xsl:apply-templates mode="#current"/>
   </xsl:template>
   
-  <xsl:template match="*[df:isTopicRef(.)]" mode="gather-index-terms">
+  <xsl:template  mode="gather-index-terms" 
+                 match="*[df:isTopicRef(.)]
+                           [not(@processing-role = 'resource-only')]
+                           [not(@scope = ('peer', 'external'))]">
     <xsl:param name="doDebug" as="xs:boolean" tunnel="yes" select="false()"/> 
     <xsl:param name="rootMapDocUrl" as="xs:string" tunnel="yes"/>
 

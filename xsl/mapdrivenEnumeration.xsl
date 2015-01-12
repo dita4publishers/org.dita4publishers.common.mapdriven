@@ -105,7 +105,10 @@
   </xsl:template>
 
   <xsl:template mode="construct-enumerable-structure"
-    match="*[df:isTopicRef(.)]">
+    match="*[df:isTopicRef(.)]
+                [not(@processing-role = ('resource-only'))]
+                [not(@format) or @format = ('dita')]
+                [not(string(@scope) = ('peer', 'external'))]">
     <xsl:param name="doDebug" as="xs:boolean" tunnel="yes" select="false()"/>
     <xsl:if test="$doDebug">
       <xsl:message> + [DEBUG] construct-enumerable-structure: topicref: <xsl:value-of select="@href"/></xsl:message>

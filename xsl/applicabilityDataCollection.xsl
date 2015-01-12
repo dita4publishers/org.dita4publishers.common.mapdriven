@@ -63,7 +63,8 @@
     <xsl:apply-templates mode="#current"/>
   </xsl:template>
   
-  <xsl:template mode="gather-applicability-usage" match="*[df:isTopicRef(.)][not(@format) or @format = 'dita' or @format = 'ditamap']">
+  <xsl:template mode="gather-applicability-usage" 
+    match="*[df:isTopicRef(.)][not(@format) or @format = ('dita','ditamap')][not(@scope = ('peer', 'external'))]">
     <!--xsl:message> + [DEBUG] gather-applicability-usage: processing topicref... </xsl:message-->
     <xsl:variable name="topic" select="df:resolveTopicRef(.)" as="element()*"/>
     <xsl:choose>
