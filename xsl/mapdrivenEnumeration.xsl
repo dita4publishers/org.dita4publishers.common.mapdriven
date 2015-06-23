@@ -69,9 +69,7 @@
                    else $DEFAULTLANG"
       />
 
-      <xsl:if test="./@xtrc">
-        <xsl:attribute name="xtrc" select="@xtrc"/>
-      </xsl:if>
+      <xsl:sequence select="@xtrc"/><!-- Copy if present -->
       <xsl:attribute name="docUri" select="base-uri(root(.))"/>
       <xsl:sequence select="$additional-attributes"/>
       <xsl:choose>
@@ -97,6 +95,9 @@
     <xsl:param name="doDebug" as="xs:boolean" tunnel="yes" select="false()"/> 
     <!-- Resource-only topicrefs and their descendants
          cannot contribute to the navigation tree -->
+    <xsl:if test="$doDebug">
+      <xsl:message> + [DEBUG] Skipping resource-only topciref.</xsl:message>
+    </xsl:if>
   </xsl:template>
 
   <xsl:template mode="construct-enumerable-structure" match="*[df:isTopicGroup(.)]" priority="10">
@@ -131,6 +132,7 @@
         <xsl:variable name="class" as="xs:string"
           select="if (name(.) = 'topicref') then string($topic/@class) else string(@class)"/>
         <xsl:if test="$doDebug">
+          <xsl:message> + [DEBUG] topic root elem: <xsl:value-of select="name($topic)"/></xsl:message>
           <xsl:message> + [DEBUG] construct-enumerable-structure:   Calling template "construct-enumerated-element"...</xsl:message>
         </xsl:if>
         <xsl:call-template name="construct-enumerated-element">
@@ -192,6 +194,7 @@
             </xsl:if>
           </xsl:with-param>
         </xsl:call-template>
+
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
@@ -255,7 +258,6 @@
     match="*[df:class(., 'topic/section')] | 
     *[df:class(., 'topic/example')] | 
     *[df:class(., 'topic/fig')] | 
-    *[df:class(., 'topic/table')] | 
     *[df:class(., 'topic/note')] | 
     *[df:class(., 'topic/bodydiv')] | 
     *[df:class(., 'topic/sectiondiv')]
@@ -264,6 +266,18 @@
     <xsl:call-template name="construct-enumerated-element">
       <xsl:with-param name="content" as="node()*">
         <xsl:apply-templates mode="#current"/>
+      </xsl:with-param>
+    </xsl:call-template>
+  </xsl:template>
+
+  <xsl:template mode="construct-enumerable-structure" priority="10"
+    match="
+    *[df:class(., 'topic/table')]
+    ">
+    <xsl:param name="doDebug" as="xs:boolean" tunnel="yes" select="false()"/> 
+    <xsl:call-template name="construct-enumerated-element">
+      <xsl:with-param name="content" as="node()*">
+        <empty/>
       </xsl:with-param>
     </xsl:call-template>
   </xsl:template>
