@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE map PUBLIC "-//OASIS//DTD DITA Map//EN" "map.dtd">
+<map>
+  <keydef keys="map-driven-processing" href="map-driven-processing.xml"/>
+  <keydef keys="map-driven-data-collection" href="map-driven-processing.xml"/>
+  <keydef keys="map-driven-enumeration" href="enumeration.xml"/>
+  <keydef keys="map-driven-index-generation" href="index-generation.xml"/>
+  <keydef keys="map-drivem-graphic-map-generation" href="graphic-map-generation.xml"/>
+</map>
