@@ -31,10 +31,6 @@
   <xsl:import href="../../org.dita-community.common.xslt/xsl/relpath_util.xsl"/>
   
 -->
-  <xsl:template mode="construct-enumerable-structure" match="*[df:isTopicHead(.)]">
-    <xsl:call-template name="construct-enumerated-element"/>
-  </xsl:template>
- 
   <xsl:template mode="construct-enumerable-structure" priority="10"
     match="*[df:class(., 'pubmap-d/frontmatter')] |
     *[df:class(., 'pubmap-d/body')] |
