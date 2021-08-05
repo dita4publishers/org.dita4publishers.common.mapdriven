@@ -6,7 +6,7 @@
   xmlns="http://dita4publishers.org/applicability"
   xmlns:df="http://dita2indesign.org/dita/functions"
   exclude-result-prefixes="xs xd df"
-  version="2.0">
+  version="3.0">
   <!-- =============================================================
     
     DITA Map to HTML Transformation
